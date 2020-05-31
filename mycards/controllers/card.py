@@ -10,16 +10,16 @@ class CardController(ModelRestController):
 
     @json
     @Card.expose
-    def get(self):
+    def list(self):
         return DBSession.query(Card)
 
-#    @json(prevent_form='709 Form Not Allowed')
-#    @Card.expose
-#    def get(self, id):
-#        id = int_or_notfound(id)
-#        card = DBSession.query(Card).get(id)
-#        if not member:
-#            raise HTTPNotFound()
-#
-#        return card
-#
+    @json(prevent_form='709 Form Not Allowed')
+    @Card.expose
+    def get(self, id):
+        id = int_or_notfound(id)
+        card = DBSession.query(Card).get(id)
+        if not member:
+            raise HTTPNotFound()
+
+        return card
+

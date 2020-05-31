@@ -4,7 +4,7 @@ from sqlalchemy import Integer, String, Unicode
 
 
 class Card(ModifiedMixin, OrderingMixin, FilteringMixin, PaginationMixin,
-             SoftDeleteMixin, DeclarativeBase):
+           SoftDeleteMixin, DeclarativeBase):
 
     __tablename__ = 'card'
 
@@ -19,25 +19,26 @@ class Card(ModifiedMixin, OrderingMixin, FilteringMixin, PaginationMixin,
         primary_key=True,
         readonly=True,
         not_none=True,
-        required=False,
-        label='ID',
-        minimum=1,
-        example=1,
-        protected=False,
     )
-    name = Field(
+    title = Field(
+        Unicode(20),
+        nullable=False,
+        not_none=True,
+    )
+    avatar = Field(
+        Unicode,
+        nullable=True,
+        not_none=False,
+    )
+    cvv2 = Field(
         Unicode(20),
         nullable=True,
         not_none=False,
-        python_type=str,
-        min_length=3,
-        max_length=20,
-        required=False,
-        pattern=r'^[a-zA-Z]{1}[a-z-A-Z ,.\'-]{2,19}$',
-        pattern_description='Only alphabetical characters, ., \' and space are'
-            'valid',
-        example='John Doe',
-        label='Full Name',
+    )
+    description = Field(
+        Unicode(20),
+        nullable=True,
+        not_none=False,
     )
 
 

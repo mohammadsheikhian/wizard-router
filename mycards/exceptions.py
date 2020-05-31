@@ -5,6 +5,10 @@ class StatusRoomMemberAlreadyExist(HTTPKnownStatus):
     status = '604 Already Added To Target'
 
 
+class HTTPIncorrectEmailOrPassword(HTTPKnownStatus):
+    status = '603 Incorrect Email Or Password'
+
+
 class StatusRoomMemberNotFound(HTTPKnownStatus):
     status = '611 User Not Found'
 

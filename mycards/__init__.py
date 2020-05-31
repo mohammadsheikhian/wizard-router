@@ -5,14 +5,17 @@ from nanohttp import settings
 from restfulpy import Application
 from sqlalchemy_media import StoreManager, FileSystemStore
 
+from .authentication import Authenticator
 from .controllers.root import Root
 from . import mockup
+from . import basedata
 
 
 __version__ = '0.1.0'
 
 
 class Mycards(Application):
+    __authenticator__ = Authenticator()
     __configuration__ = '''
       db:
         url: postgresql://postgres:postgres@localhost/mycards_dev
@@ -38,8 +41,7 @@ class Mycards(Application):
         )
 
     def insert_basedata(self, *args):# pragma: no cover
-        pass
-        #basedata.insert()
+        basedata.insert()
 
     def insert_mockup(self, *args):# pragma: no cover
         mockup.insert()

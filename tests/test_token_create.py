@@ -5,7 +5,7 @@ from mycards.models import Member
 from .helpers import LocalApplicationTestCase
 
 
-class TestLogin(LocalApplicationTestCase):
+class TestToken(LocalApplicationTestCase):
 
     @classmethod
     def mockup(cls):
@@ -20,7 +20,7 @@ class TestLogin(LocalApplicationTestCase):
         session.add(member)
         session.commit()
 
-    def test_create_token(self):
+    def test_create(self):
         email = 'already.added@example.com'
         password = '123abcABC'
 
@@ -34,13 +34,13 @@ class TestLogin(LocalApplicationTestCase):
             assert 'token' in response.json
 
             when('Invalid password', form=Update(password='123aA'))
-            assert status == '603 Incorrect Email Or Password'
+            assert status == '400 Incorrect Email Or Password'
 
             when('Not exist email', form=Update(email='user@example.com'))
-            assert status == '603 Incorrect Email Or Password'
+            assert status == '400 Incorrect Email Or Password'
 
             when('Invalid email format', form=Update(email='user.com'))
-            assert status == '701 Invalid Email Format'
+            assert status == '400 Invalid Email Format'
 
             when('Trying to pass with empty form', form={})
             assert status == '400 Empty Form'

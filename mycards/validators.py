@@ -16,8 +16,8 @@ USER_EMAIL_PATTERN = re.compile(
 
 email_validator = validate(
     email=dict(
-        required='722 Email Not In Form',
-        pattern=(USER_EMAIL_PATTERN, '701 Invalid Email Format')
+        required='400 Email Not In Form',
+        pattern=(USER_EMAIL_PATTERN, '400 Invalid Email Format')
     )
 )
 

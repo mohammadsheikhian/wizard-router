@@ -5,7 +5,7 @@ from datetime import datetime
 
 from nanohttp import context, settings, HTTPStatus
 from restfulpy.orm import DeclarativeBase, Field, DBSession, relationship
-from restfulpy.principal import JWTRefreshToken
+from restfulpy.principal import JWTRefreshToken, JWTPrincipal
 from sqlalchemy import Unicode, Integer, JSON, Date, UniqueConstraint, String
 from sqlalchemy.orm import synonym
 from sqlalchemy_media import Image, ImageAnalyzer, ImageValidator, \
@@ -240,7 +240,7 @@ class Member(DeclarativeBase):
     )
 
     def create_jwt_principal(self):
-        return CASPrincipal({
+        return JWTPrincipal({
             'id': self.id,
             'email': self.email,
             'firstName': self.first_name,

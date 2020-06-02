@@ -6,7 +6,7 @@ class StatusRoomMemberAlreadyExist(HTTPKnownStatus):
 
 
 class HTTPIncorrectEmailOrPassword(HTTPKnownStatus):
-    status = '603 Incorrect Email Or Password'
+    status = '400 Incorrect Email Or Password'
 
 
 class StatusRoomMemberNotFound(HTTPKnownStatus):

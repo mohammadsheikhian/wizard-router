@@ -5,21 +5,18 @@ from nanohttp import settings
 from restfulpy import Application
 from sqlalchemy_media import StoreManager, FileSystemStore
 
-from .authentication import Authenticator
 from .controllers.root import Root
-from . import mockup
-from . import basedata
+
 
 
 __version__ = '0.1.0'
 
 
-class Mycards(Application):
-    __authenticator__ = Authenticator()
+class WizardRouter(Application):
     __configuration__ = '''
       db:
-        url: postgresql://postgres:postgres@localhost/mycards_dev
-        test_url: postgresql://postgres:postgres@localhost/mycards_test
+        url: postgresql://postgres:postgres@localhost/wizard_router_dev
+        test_url: postgresql://postgres:postgres@localhost/wizard_router_test
         administrative_url: postgresql://postgres:postgres@localhost/postgres
 
       migration:
@@ -32,19 +29,13 @@ class Mycards(Application):
 
    '''
 
-    def __init__(self, application_name='mycards', root=Root()):
+    def __init__(self, application_name='wizard_router', root=Root()):
         super().__init__(
             application_name,
             root=root,
             root_path=dirname(__file__),
             version=__version__
         )
-
-    def insert_basedata(self, *args):# pragma: no cover
-        basedata.insert()
-
-    def insert_mockup(self, *args):# pragma: no cover
-        mockup.insert()
 
     @classmethod
     def initialize_orm(cls, engine=None):
@@ -60,5 +51,4 @@ class Mycards(Application):
         super().initialize_orm(cls, engine)
 
 
-mycards = Mycards()
-
+wizard_router = WizardRouter()

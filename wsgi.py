@@ -1,4 +1,4 @@
-from mycards import mycards as app
+from wizard_router import wizard_router as app
 
 
 app.configure()

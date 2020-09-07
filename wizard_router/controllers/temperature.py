@@ -1,3 +1,4 @@
+import os
 import subprocess
 
 from nanohttp import RestController, json
@@ -5,7 +6,7 @@ from nanohttp import RestController, json
 
 class TemperatureController(RestController):
 
-    @json(prevent_empty_form=True)
+    @json(prevent_form=True)
     def get(self):
         temperatures = dict(
             cpu='0',
@@ -13,29 +14,22 @@ class TemperatureController(RestController):
         )
 
         try:
-            process = subprocess.Popen(
-                'cpu-temperature'.split(),
-                stdout=subprocess.PIPE,
-                shell=True,
-                executable='/bin/bash',
+            process = subprocess.run(
+                'vcgencmd measure_temp'.split(),
+                stdout=subprocess.PIPE
             )
-            output, error = process.communicate()
-            output = output.decode()
-            temperatures['cpu'] = output if output != '' else '0'
+            temperatures['gpu'] = process.stdout.decode()
 
         except:
             pass
 
         try:
-            process = subprocess.Popen(
-                'gpu-temperature'.split(),
-                stdout=subprocess.PIPE,
-                shell=True,
-                executable='/bin/bash',
+            process = subprocess.run(
+                'cat /sys/class/thermal/thermal_zone0/temp'.split(),
+                stdout=subprocess.PIPE
             )
-            output, error = process.communicate()
-            output = output.decode()
-            temperatures['gpu'] = output if output != '' else '0'
+            temperature = int(process.stdout.decode()) / 1000
+            temperatures['gpu'] = temperature
 
         except:
             pass

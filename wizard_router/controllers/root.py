@@ -1,16 +1,17 @@
-from os.path import abspath, dirname, join
-
 from nanohttp import json
 from restfulpy.controllers import RootController, RestController
 
 import wizard_router
-
-
-here = abspath(dirname(__file__))
-attachment_storage = abspath(join(here, '../..', 'data/assets'))
+from .temperature import TemperatureController
+from .openvpn import OpenVPNController
+from .openconnect import OpenConnectController
 
 
 class Apiv1(RestController):
+
+    temperatures = TemperatureController()
+    openvpns = OpenVPNController()
+    openconnects = OpenConnectController()
 
     @json
     def version(self):

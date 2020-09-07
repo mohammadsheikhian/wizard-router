@@ -12,7 +12,6 @@ with open(join(dirname(__file__), 'wizard_router', '__init__.py')) as v_file:
 dependencies = [
     'restfulpy >= 3.4.0, < 4',
     'requests',
-    'sqlalchemy_media',
 
     # Deployment
     'gunicorn',

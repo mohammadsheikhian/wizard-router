@@ -1,2 +1,1 @@
-from .member import Member
 

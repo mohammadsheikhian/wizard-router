@@ -3,7 +3,6 @@ from os.path import dirname
 
 from nanohttp import settings
 from restfulpy import Application
-from sqlalchemy_media import StoreManager, FileSystemStore
 
 from .controllers.root import Root
 
@@ -37,18 +36,5 @@ class WizardRouter(Application):
             version=__version__
         )
 
-    @classmethod
-    def initialize_orm(cls, engine=None):
-        StoreManager.register(
-            'fs',
-            functools.partial(
-                FileSystemStore,
-                settings.storage.local_directory,
-                base_url=settings.storage.base_url,
-            ),
-            default=True
-        )
-        super().initialize_orm(cls, engine)
-
-
 wizard_router = WizardRouter()
+

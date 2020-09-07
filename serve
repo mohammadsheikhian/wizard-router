@@ -1,0 +1,4 @@
+#! /bin/bash
+
+/home/pi/.local/bin/gunicorn --workers 2 --reload --timeout 9999999 --bind :8081 wsgi:app
+

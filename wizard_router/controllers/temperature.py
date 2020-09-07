@@ -1,4 +1,4 @@
-import os
+import re
 import subprocess
 
 from nanohttp import RestController, json
@@ -18,7 +18,8 @@ class TemperatureController(RestController):
                 'vcgencmd measure_temp'.split(),
                 stdout=subprocess.PIPE
             )
-            temperatures['gpu'] = process.stdout.decode()
+            stdout = process.stdout.decode()
+            temperatures['gpu'] = re.findall('\d*[.]*\d', stdout)[0]
 
         except:
             pass
@@ -29,7 +30,7 @@ class TemperatureController(RestController):
                 stdout=subprocess.PIPE
             )
             temperature = int(process.stdout.decode()) / 1000
-            temperatures['gpu'] = temperature
+            temperatures['cpu'] = temperature
 
         except:
             pass

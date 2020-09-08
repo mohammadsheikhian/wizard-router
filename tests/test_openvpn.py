@@ -18,7 +18,7 @@ class TestOpenVPN(LocalApplicationTestCase):
         with self.given(
             'Reseting the open vpn',
             '/apiv1/openvpns',
-            'RESET',
+            'RESTART',
         ):
             assert status == 200
             assert 'status' in response.json

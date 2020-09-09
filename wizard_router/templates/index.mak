@@ -18,7 +18,7 @@
 
 .green {
   background-color: white;
-  color: black;
+  color: green;
   border: 2px solid #4CAF50;
 }
 
@@ -29,7 +29,7 @@
 
 .blue {
   background-color: white;
-  color: black;
+  color: #008CBA;
   border: 2px solid #008CBA;
 }
 
@@ -40,7 +40,7 @@
 
 .red {
   background-color: white;
-  color: black;
+  color: red;
   border: 2px solid #f44336;
 }
 
@@ -57,7 +57,6 @@ table, th, td {
     </style>
 </head>
 <body>
-
 <table style="margin-left: auto; margin-right: auto;">
     <caption>
         <h1 style="text-align: center;">
@@ -90,12 +89,71 @@ table, th, td {
     </tbody>
 </table>
 
+</br>
+
+<table style="margin-left: auto; margin-right: auto;">
+    <caption>
+        <h1 style="text-align: center;">
+            <span style="color: #000080;">
+                <strong>Device Info</strong>
+            </span>
+        </h1>
+    </caption>
+    <tbody>
+    <tr border-collapse="collapse">
+        <td>
+            <strong>IP address: ${ip}</strong>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">
+            <strong >CPU temperature: </strong>
+            <strong id="cpu-temperature">0</strong>
+            <strong>C</strong>
+            <button class="button green" onclick="getTemperature()">Refresh</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button class="button green" onclick="getPing()">Ping</button>
+            <button class="button red" onclick="reboot()">Reboot</button>
+            <p id="ping" style="text-align: center;font-size:7px;"></p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 <script>
 function setStatus(data, key){
     console.log(key)
     console.log(data)
     label = document.getElementById(key + '-status')
     label.innerText = data.status
+}
+
+function getPing() {
+  fetch('http://${ip}/apiv1/pings')
+  .then(response => response.json())
+  .then(function(json) {
+    label = document.getElementById('ping')
+    label.innerText = json.ping
+  });
+}
+
+function reboot() {
+  fetch('http://${ip}/apiv1/reboots')
+  .then(response => response.json())
+  .then(function(json) {
+  });
+}
+
+function getTemperature() {
+  fetch('http://${ip}/apiv1/temperatures')
+  .then(response => response.json())
+  .then(function(json) {
+    label = document.getElementById('cpu-temperature')
+    label.innerText = json.cpu
+  });
 }
 
 function getStatus(key) {

@@ -7,6 +7,8 @@ import wizard_router
 from .temperature import TemperatureController
 from .openvpn import OpenVPNController
 from .openconnect import OpenConnectController
+from .ping import PingController
+from .reboot import RebootController
 from ..templating import template
 
 
@@ -15,6 +17,8 @@ class Apiv1(RestController):
     temperatures = TemperatureController()
     openvpns = OpenVPNController()
     openconnects = OpenConnectController()
+    pings = PingController()
+    reboots = RebootController()
 
     @json
     def version(self):

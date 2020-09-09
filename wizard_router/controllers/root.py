@@ -1,3 +1,5 @@
+import socket
+
 from nanohttp import json, html
 from restfulpy.controllers import RootController, RestController
 
@@ -24,5 +26,11 @@ class Root(RootController):
 
     @template('index.mak')
     def index(self):
-        return dict()
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('8.8.8.8', 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return dict(
+            ip=ip,
+        )
 

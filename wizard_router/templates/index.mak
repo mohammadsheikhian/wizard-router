@@ -100,7 +100,7 @@ function setStatus(data, key){
 
 function getStatus(key) {
 console.log(key)
-  fetch('http://192.168.1.110/apiv1/' + key, {method: 'STATUS',})
+  fetch('http://${ip}/apiv1/' + key, {method: 'STATUS',})
   .then(response => response.json())
   .then(function(json) {
     setStatus(json, key)
@@ -108,14 +108,14 @@ console.log(key)
 }
 
 function restartVPN(key) {
-  fetch('http://192.168.1.110/apiv1/' + key, {method: 'RESTART',})
+  fetch('http://${ip}/apiv1/' + key, {method: 'RESTART',})
   .then(response => response.json())
   .then(function(json) {
     setStatus(json, key)
   });}
 
 function stopVPN(key) {
-  fetch('http://192.168.1.110/apiv1/' + key, {method: 'STOP',})
+  fetch('http://${ip}/apiv1/' + key, {method: 'STOP',})
   .then(response => response.json())
   .then(function(json) {
     setStatus(json, key)
